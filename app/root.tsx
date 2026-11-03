@@ -40,7 +40,7 @@ export function Layout({ children }: { readonly children: React.ReactNode }) {
   return (
     <LiveDataProvider>
       <html
-        lang="en"
+        lang="zh-CN"
         className={
           loaderData?.colorScheme === "dark"
             ? "dark"

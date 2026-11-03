@@ -14,11 +14,13 @@ interface RestrictionProps {
 }
 
 export default function RestrictionTable({ children, type, values, isDisabled }: RestrictionProps) {
+  // Static words so the zh-CN dictionary can translate them. The `type` value
+  // itself stays a form field name.
+  const typeName = type === "domain" ? "Domains" : type === "group" ? "Groups" : "Users";
+
   return (
     <div className="w-full sm:w-2/3">
-      <h2 className="mt-8 text-2xl font-medium">
-        Permitted {type.charAt(0).toUpperCase() + type.slice(1)}s
-      </h2>
+      <h2 className="mt-8 text-2xl font-medium">Permitted {typeName}</h2>
       <TableList className="my-4">
         {values.length > 0 ? (
           values.map((value) => (
@@ -48,7 +50,9 @@ export default function RestrictionTable({ children, type, values, isDisabled }:
         ) : (
           <TableList.Item className="flex flex-col items-center gap-2.5 py-4 opacity-70">
             {iconForType(type)}
-            <p className="text-center font-semibold">All {type}s are permitted to authenticate.</p>
+            <p className="text-center font-semibold">
+              All {typeName} are permitted to authenticate.
+            </p>
           </TableList.Item>
         )}
       </TableList>

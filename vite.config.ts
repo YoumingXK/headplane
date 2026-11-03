@@ -6,6 +6,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import { parse } from "yaml";
 
+import { zhCNPlugin } from "./app/i18n/plugin";
 import { headplaneDevServer } from "./runtime/vite-plugin";
 
 const PROD_ENTRY = "./app/server/main.ts";
@@ -51,6 +52,7 @@ export default defineConfig(({ command }) => {
   return {
     base: command === "build" ? `${PREFIX}/` : undefined,
     plugins: [
+      zhCNPlugin(),
       headplaneDevServer({
         entry: DEV_ENTRY,
         basename: PREFIX,
