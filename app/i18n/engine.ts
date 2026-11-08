@@ -377,14 +377,21 @@ function renderTemplate(
   let last = 0;
   let match: RegExpExecArray | null;
   while ((match = re.exec(translation))) {
-    out += translation.slice(last, match.index);
+    // Escape only the surrounding copy. The `${...}` inserted below has to
+    // stay a real interpolation; escaping the finished template prints the
+    // placeholder literally, e.g. `${hours} 小时 ${remainingMinutes} 分钟前`.
+    out +=
+      wrapper === "template"
+        ? escapeTemplate(translation.slice(last, match.index))
+        : translation.slice(last, match.index);
     const slot = slots.find((item) => item.norm === match?.[1]);
     if (!slot) return null;
     out += wrapper === "jsx" ? `{${slot.source}}` : `\${${slot.source}}`;
     last = match.index + match[0].length;
   }
-  out += translation.slice(last);
-  if (wrapper === "template") return `\`${escapeTemplate(out)}\``;
+  const tail = translation.slice(last);
+  out += wrapper === "template" ? escapeTemplate(tail) : tail;
+  if (wrapper === "template") return `\`${out}\``;
   return out;
 }
 
