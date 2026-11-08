@@ -1,5 +1,9 @@
 # Next
 
+## Fixes
+
+- Relative times in the Chinese UI, such as how long ago a machine was last seen, now include the actual count. A last-seen line that should read "3 小时 11 分钟前" showed the placeholders unchanged: `${hours} 小时 ${remainingMinutes} 分钟前`. The same substitution now works for minutes, exact hours, hours and minutes, days, days and hours, months, and months and days. An interval under one minute still uses the minutes line and reads "0 分钟前".
+
 # 0.8.2 (October 22, 2026)
 
 This release contains an important security update for Headplane that protects against the [compromised eMudhra intermediate CAs](https://emudhra.com/en/post/certificate-security-incident) with Node.js 24.22.1 and Go 1.27.3. Any native installations should also upgrade to these versions and rebuild the agent.
